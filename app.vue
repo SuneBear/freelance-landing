@@ -12,7 +12,7 @@ import '~/styles/main.styl'
 // Scaffolding
 body
   margin: 0
-  font-family: "Inter", "Roboto", "Helvetica", "Arial", sans-serif
+  font-family: "Noto Sans SC", "Inter", "Roboto", "Helvetica", "Arial", sans-serif
   background: $secondary100
   color: $primary100
   font-size: 1rem

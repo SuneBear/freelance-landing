@@ -37,7 +37,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Stylus Pug Starter",
+      title: "熊舒乐的自由职业之路",
       meta: [
         {
           "name": "viewport",
@@ -48,7 +48,11 @@ export default defineNuxtConfig({
         }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+        { href: '/augmented-ui.min.css', rel: 'stylesheet', type: 'text/css' },
+        { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
+        { href: 'https://fonts.gstatic.com', rel: 'preconnect', crossorigin: true },
+        { href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;600;700&display=swap', rel: 'stylesheet' }
       ],
       script: [
         { id: 'check-dark-light',
