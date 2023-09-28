@@ -37,7 +37,8 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "熊舒乐的自由职业之路",
+      title: "与我协作，让 <div> 绽放光芒",
+      // @TODO：配置 OG
       meta: [
         {
           "name": "viewport",

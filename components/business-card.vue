@@ -11,7 +11,7 @@ hover-spotlight-card.business-card.flex.gap-40px(
   .main-part.flex.flex-col.flex-1.flex-justify-between
     .top-part
       h2.info-name.my-0 熊舒乐
-      h3.info-title.mt-2 {{age}} 岁 · 前端工程师
+      h3.info-title.mt-2 {{age}} 岁 · 爱切图的前端工程师
 
     .bottom-part.text-right
       p.my-0.into-contact( @click.stop="handleCopyClick(wechat)" ) 微信：{{ wechat }}
