@@ -1,17 +1,27 @@
 <template lang="pug">
-.page.page-home
-  h2 Home
-  .flex.align-center.my-2
-    .brand-color.mr-2( :style="{ color: 'var(--brand)' }" ) Brand Color
-    nuxt-icon( name="youtube" )
+.page.page-home( ref="scrollContainer" )
+  initial-loading
 
-  theme-switcher
+  .sketch-container( ref="sketchContainer" )
 
   .section.section-contact.flex.flex-col.items-center.gap-5vh
     business-card
 </template>
 
 <script lang="ts" setup>
+import { init } from '@/components/landing-sketch'
+
+const scrollContainer = ref<HTMLDivElement>()
+
+const initSketch = () => {
+  init({
+    scrollContainer: scrollContainer.value
+  })
+}
+
+onMounted(() => {
+  initSketch()
+})
 </script>
 
 <style lang="stylus">
