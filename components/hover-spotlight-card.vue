@@ -12,7 +12,7 @@
 import { useMouseInElement } from '@vueuse/core'
 
 const props = withDefaults(defineProps<{
-  enableHover: boolean,
+  enableHover?: boolean,
   enableParallax: boolean,
   enableOutside: boolean,
   rotateFactor: number

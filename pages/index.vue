@@ -1,6 +1,8 @@
 <template lang="pug">
 .page.page-home( ref="scrollContainer" )
-  initial-loading
+  initial-loading(
+    v-if="config.public.needLoading"
+  )
 
   .sketch-container( ref="sketchContainer" )
 
@@ -11,6 +13,7 @@
 <script lang="ts" setup>
 import { init } from '@/components/landing-sketch'
 
+const config = useRuntimeConfig()
 const scrollContainer = ref<HTMLDivElement>()
 
 const initSketch = () => {
