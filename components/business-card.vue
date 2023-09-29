@@ -8,14 +8,14 @@ hover-spotlight-card.business-card.flex.gap-40px(
   @click="handleCardClick"
 )
   sune-creepy-face.flex-shrink-0
-  .main-part.flex.flex-col.flex-1.flex-justify-between
+  tv-lines.main-part.flex.flex-col.flex-1.flex-justify-between
     .top-part
       h2.info-name.my-0 熊舒乐
       h3.info-title.mt-2 {{age}} 岁 · 爱切图的前端工程师
 
     .bottom-part.text-right
-      p.my-0.into-contact( @click.stop="handleCopyClick(wechat)" ) 微信：{{ wechat }}
-      p.my-0.into-contact( @click.stop="handleCopyClick(email)" ) 邮箱：{{ email }}
+      p.my-0.into-contact.font-chakra( @click.stop="handleCopyClick(wechat)" ) 微信：{{ wechat }}
+      p.my-0.into-contact.font-chakra( @click.stop="handleCopyClick(email)" ) 邮箱：{{ email }}
 </template>
 
 <script lang="ts" setup>
@@ -24,8 +24,8 @@ const { copy } = useClipboard()
 
 const birthDate = new Date('1994-10-11')
 const nowDate = new Date()
-const wechat = 'sune94'
-const email = 'hi@sunebear.com'
+const wechat = 'SUNE94'
+const email = 'Hi@SuneBear.com'
 const age = computed(() => {
   return nowDate.getFullYear() - birthDate.getFullYear()
 })
@@ -60,10 +60,6 @@ const handleCopyClick = (val: string) => {
 
   &:hover
     activeState()
-
-  // @TODO: 把 Mask 抽象成组件
-  .main-part
-    mask-image: repeating-linear-gradient(black, black 2px, transparent 2.5px)
 
   .info-name
     font-size: 40px

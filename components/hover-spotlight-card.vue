@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { useMouseInElement } from '@vueuse/core'
+import { clamp } from '@/utils/math'
 
 const props = withDefaults(defineProps<{
   enableHover?: boolean,
@@ -34,8 +35,8 @@ const transformStyle = computed(() => {
   const y = cardMouse.elementY.value - cardMouse.elementHeight.value / 2
   const mousePX = x / cardMouse.elementWidth.value
   const mousePY = y / cardMouse.elementHeight.value
-  const rx = mousePX * props.rotateFactor
-  const ry = mousePY * props.rotateFactor
+  const rx = clamp(mousePX * props.rotateFactor, -props.rotateFactor * 2, props.rotateFactor * 2)
+  const ry = clamp(mousePY * props.rotateFactor, -props.rotateFactor * 2, props.rotateFactor * 2)
   return {
     transform: (cardMouse.isOutside.value && !props.enableOutside) ? null : `perspective(800px) rotateY(${rx}deg) rotateX(${ry}deg)`
   }

@@ -35,7 +35,7 @@ $mediaInXL      = '(min-width: 1904px)'
 
 // The division here is based on iPad 768, which is different from MD standard
 // The advantage of the method is that it does not require Mobile First
-$mediaInMobile  = s('(min-width: 0px) and %s', $mediaMobileMax)
+$mediaInMobile  = s('(min-width: 0px) and (max-width: 767px)')
 $mediaInDesktop = '(min-width: 768px)'
 $mediaInSmallScreen  = s('(min-width: 0px) and %s', s('(max-width: 959px)'))
 $mediaInMiddleScreen  = s('(min-width: 0px) and %s', s('(max-width: 1315px)'))

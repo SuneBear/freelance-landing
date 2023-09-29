@@ -60,7 +60,7 @@ export default defineNuxtConfig({
         { href: '/augmented-ui.min.css', rel: 'stylesheet', type: 'text/css' },
         { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
         { href: 'https://fonts.gstatic.com', rel: 'preconnect', crossorigin: true },
-        { href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;600;700&display=swap', rel: 'stylesheet' }
+        { href: 'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;700&family=Noto+Sans+SC:wght@100;300;400;500;600;700&display=swap', rel: 'stylesheet' }
       ],
       script: [
         { id: 'check-dark-light',

@@ -1,10 +1,15 @@
 <template lang="pug">
-.page.page-home( ref="scrollContainer" )
-  initial-loading(
-    v-if="config.public.needLoading"
-  )
+.page.page-home
+  tv-frame
+    initial-loading(
+      v-if="config.public.needLoading"
+    )
 
-  .sketch-container( ref="sketchContainer" )
+    .sketch-container( ref="sketchContainer" )
+
+  .section.section-hero
+  .section.section-gallery
+  .section.section-collab
 
   .section.section-contact.flex.flex-col.items-center.gap-5vh
     business-card
@@ -12,19 +17,45 @@
 
 <script lang="ts" setup>
 import { init } from '@/components/landing-sketch'
+import gsap from 'gsap'
 
+const store = useStore()
 const config = useRuntimeConfig()
-const scrollContainer = ref<HTMLDivElement>()
 
 const initSketch = () => {
   init({
-    scrollContainer: scrollContainer.value
+    scrollContainer: document.body
+  })
+}
+
+const setupScrollTrigger = () => {
+  setupContactScrollTrigger()
+}
+
+const setupContactScrollTrigger = () => {
+  gsap.to('.tv-frame-wrapper', {
+    scrollTrigger: {
+      trigger: '.section-contact',
+      ease: "none",
+      scrub: 1
+    },
+    // y: "50vh",
+    opacity: 0.1
   })
 }
 
 onMounted(() => {
   initSketch()
+  setupScrollTrigger()
 })
+
+useHead({
+  bodyAttrs: {
+    class: computed(() => {
+      return store.ui.isLoading ? 'disable-scroll' : ''
+    }),
+  },
+});
 </script>
 
 <style lang="stylus">
@@ -33,14 +64,21 @@ onMounted(() => {
   // max-width: 1000px
   // padding: 20px fluid-value(20, 100)
 
+  .scroll-trigger
+    // height: 300vh
+
   .section
     width: 100%
-    height: 100vh
-    height: 100dvh
-    background-color: #FFFFFA
+    min-height: 100vh
+    min-height: 100dvh
+    // background-color: var(--bg-color)
+    // background-color: white
 
   .section-contact
     padding-top: 25dvh
+    position relative
+    z-index 233
+    background-color: white
 
     @media $mediaInMobile
       padding-top: 10dvh
