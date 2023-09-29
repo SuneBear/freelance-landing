@@ -28,6 +28,16 @@ body
   -moz-osx-font-smoothing: grayscale
   background-color: var(--bg-color)
 
+  // Hide scrollbar
+  &::-webkit-scrollbar
+    width: 0px
+
+  &::-webkit-scrollbar *
+    background: transparent
+
+  &::-webkit-scrollbar-thumb
+    background: rgba(0,0,0,0.001) !important
+
   &.disable-scroll
     overflow: hidden
 
