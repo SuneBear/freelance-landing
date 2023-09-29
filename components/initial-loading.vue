@@ -1,5 +1,7 @@
 <template lang="pug">
 .initial-loading
+  .flex.items-center.justify-center.pt-40vh
+    h1.text-40px Loading Text
 </template>
 
 <script lang="ts" setup>

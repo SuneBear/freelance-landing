@@ -10,8 +10,9 @@ import '~/styles/main.styl'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
-
+onMounted(() => {
+  gsap.registerPlugin(ScrollTrigger)
+})
 </script>
 
 <style lang="stylus">
