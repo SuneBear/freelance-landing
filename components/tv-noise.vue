@@ -55,13 +55,12 @@ const setupCanvas = () => {
   left: 0;
   top: 0;
   z-index: 100000;
-  opacity: 0.08;
+  opacity: 0.4;
   pointer-events: none;
-  mix-blend-mode: difference;
-  will-change: transform;
+  mix-blend-mode: color-dodge;
 
   canvas
     width: 100%
     height: 100%
-    filter: invert(50%)
+    filter: invert(70%)
 </style>

@@ -1,0 +1,23 @@
+@keyframes anim-squiggly
+  0%
+    filter s('url(#filter-squiggly-0)')
+  25%
+    filter s('url(#filter-squiggly-1)')
+  50%
+    filter s('url(#filter-squiggly-2)')
+  75%
+    filter s('url(#filter-squiggly-3)')
+  100%
+    filter s('url(#filter-squiggly-4)')
+
+[class*="anim-"],
+.animation
+  animation-fill-mode: both
+  animation-iteration-count: infinite
+  animation-duration: var(--duration, 300ms)
+  animation-delay: var(--delay, 0ms)
+
+.anim-squiggly
+  animation-name anim-squiggly
+  animation-duration var(--duration, .7s)
+  animation-timing-function linear

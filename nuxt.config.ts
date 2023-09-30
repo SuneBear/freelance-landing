@@ -4,7 +4,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      needLoading: true,
+      needLoading: false,
       debug: true
     }
   },

@@ -56,7 +56,6 @@ const setupContactScrollTrigger = () => {
   gsap.to('.content-wrapper', {
     scrollTrigger: {
       trigger: '.section-contact',
-      ease: "none",
       scrub: 1
     },
     // y: "50vh",
@@ -67,7 +66,14 @@ const setupContactScrollTrigger = () => {
 onMounted(() => {
   initSketch()
   setupScrollTrigger()
+  scrollToHeroAfterLoading()
 })
+
+const scrollToHeroAfterLoading = () => {
+  watch(() => store.ui.isLoading, () => {
+    console.log("TODO: Switch to hero")
+  })
+}
 
 useHead({
   bodyAttrs: {
@@ -105,7 +111,7 @@ useHead({
     // background-color: white
 
   .section-hero
-    background: red
+    // background: red
 
   .section-contact
     padding-top: 25dvh

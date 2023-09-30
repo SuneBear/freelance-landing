@@ -11,8 +11,13 @@
 .tv-lines
   --line-base: 2px
   --line-spacing: 0.5px
+  --mask-alpha: 0.5
   mask-image: repeating-linear-gradient(
     black, black var(--line-base),
-    transparent calc(var(--line-base) + var(--line-spacing))
+    s('rgba(0,0,0, var(--mask-alpha))') calc(var(--line-base) + var(--line-spacing))
   )
+
+  &.bg-mode
+    background-image: linear-gradient(transparent 0%, rgba(10, 16, 10, 0.3) 50%)
+    background-size: 1000px 2px
 </style>

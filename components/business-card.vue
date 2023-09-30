@@ -4,7 +4,7 @@ hover-spotlight-card.business-card.flex.gap-40px(
   :rotateFactor="5"
   :light-size="500"
   enableOutside
-  enableParallax
+  :enableParallax="!$device.isSafari"
   @click="handleCardClick"
 )
   sune-creepy-face.flex-shrink-0
@@ -61,6 +61,9 @@ const handleCopyClick = (val: string) => {
   &:hover
     activeState()
 
+  .main-part.tv-lines
+    --mask-alpha: 0
+
   .info-name
     font-size: 40px
     font-weight: 100
@@ -68,7 +71,9 @@ const handleCopyClick = (val: string) => {
   .info-title
     opacity: 0.7
     font-weight: 400
+    font-size: fluid-value(16, 19)
 
   .into-contact
     opacity: 0.8
+    font-size: fluid-value(14, 14)
 </style>

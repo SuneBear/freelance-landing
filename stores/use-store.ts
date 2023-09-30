@@ -15,6 +15,10 @@ export const useStore = defineStore('main', {
     ui: {
       isLoading: true,
       loadingProgress: 0,
+
+      contentScrollProgress: 0,
+      heroScrollEnterProgress: 0,
+      heroScrollLeaveProgress: 0,
     },
 
     context: {

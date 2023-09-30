@@ -2,9 +2,9 @@
 .tv-frame-wrapper
   .tv-frame
     .tv-screen
+      tv-noise
       .tv-screen-overlay
         img(src="@/assets/frame.png")
-      tv-noise
       tv-detector
       tv-lines.tv-content
         slot
@@ -23,6 +23,7 @@
   transform: translate3d(-50%, -50%, 0)
   padding: var(--frame-size)
   width: 100%
+  // text-shadow: 0 0 3px green
   // max-width: s('min(80vw, 1200px)')
 
   @media $mediaInDesktop
@@ -47,12 +48,12 @@
 
   .tv-screen-overlay
     --offset: -6%
-    opacity: 0.85
+    opacity: 0.2
     position: absolute
     inset: var(--offset)
     z-index: 10
     pointer-events: none
-    mix-blend-mode: difference
+    mix-blend-mode: darken
 
     > img
       position: absolute;

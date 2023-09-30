@@ -1,6 +1,7 @@
 <template lang="pug">
-nuxt-layout( keepalive )
+nuxt-layout( )
   nuxt-page
+  //- svg-filters
 </template>
 
 <script lang="ts" setup>
