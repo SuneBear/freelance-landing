@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
   texts: ['HOLOCASTING', '信号正在穿越时空'] as any,
   letterSpeed: 30,
   nextLetterSpeed: 160,
-  pausedText: '信号搜索完毕，开始播放',
+  pausedText: '信号搜索完毕，开始呈现',
   paused: false,
   pauseTime: 300,
 })
