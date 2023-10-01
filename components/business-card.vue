@@ -4,11 +4,13 @@ hover-spotlight-card.business-card.flex.gap-40px(
   :rotateFactor="5"
   :light-size="500"
   enableOutside
+  :enableHover="false"
   :enableParallax="!$device.isSafari"
   @click="handleCardClick"
+  data-augmented-ui="tr-clip bl-clip br-clip-y both"
 )
   sune-creepy-face.flex-shrink-0
-  tv-lines.main-part.flex.flex-col.flex-1.flex-justify-between
+  .main-part.flex.flex-col.flex-1.flex-justify-between
     .top-part
       h2.info-name.my-0 熊舒乐
       h3.info-title.mt-2 {{age}} 岁 · 爱切图的前端工程师
@@ -44,16 +46,23 @@ const handleCopyClick = (val: string) => {
   --radius: 2px
   --light-color: brand(5)
   padding: 30px
+  padding-right: 37px
   width: s('min(80vw, 500px)')
   aspect-ratio: 1/0.55
   // cursor pointer
+  // border: solid 0.5px #eee
+  --aug-border-all: 2px
+  --aug-border-bg: #f2f2f2
+  --aug-inlay-all: 4px
+  // --aug-inlay-bg: #fbfbfb
+  --aug-inlay-bg: #fff
 
   @media $mediaInMobile
     aspect-ratio: 0.65/1
 
   activeState()
     background: white
-    box-shadow: 2px 2px 24px 0px rgba(0, 0, 0, 0.1)
+    // box-shadow: 2px 2px 24px 0px rgba(0, 0, 0, 0.1)
 
   @media $mediaInMobile
     activeState()

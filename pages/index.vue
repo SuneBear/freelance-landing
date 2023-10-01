@@ -3,23 +3,23 @@
   tv-frame
     .sketch-container( ref="sketchContainer" )
 
+    initial-loading(
+      v-if="config.public.needLoading"
+    )
+
     .content-wrapper
-      .section.section-loading
-        initial-loading(
-          v-if="config.public.needLoading"
-        )
-      .section.section-hero
-      .section.section-gallery
-      .section.section-collab
+      //- .section.section-hero
+      //- .section.section-gallery
+      section-collab
 
   .scroll-trigger
-    .section-loading
-    .section.section-hero
-    .section.section-gallery
+    //- .section.section-hero
+    //- .section.section-gallery
     .section.section-collab
 
-  .section.section-contact.flex.flex-col.items-center.gap-5vh
-    business-card
+  section-contact(
+    :timelineProgress="contactTimelineProgress"
+  )
 </template>
 
 <script lang="ts" setup>
@@ -28,6 +28,7 @@ import gsap from 'gsap'
 
 const store = useStore()
 const config = useRuntimeConfig()
+const contactTimelineProgress = ref(0)
 
 const initSketch = () => {
   init({
@@ -37,29 +38,39 @@ const initSketch = () => {
 
 const setupScrollTrigger = () => {
   // @FIXME: 同步两个 Wrapper 的滚动值
-  gsap.to('.content-wrapper', {
+  const scrollSync = gsap.to('.content-wrapper', {
     scrollTrigger: {
       trigger: '.scroll-trigger',
-      ease: "none",
       start: "top top",
-      end: "bottom bottom",
+      // end: "bottom",
+      markers: false,
       scrub: 1
     },
     y: "-100%",
-    ease: "none"
+    ease: "none",
+    onUpdate: () => {
+    }
   })
 
   setupContactScrollTrigger()
 }
 
 const setupContactScrollTrigger = () => {
-  gsap.to('.content-wrapper', {
+  const tween = gsap.to('.tv-frame', {
     scrollTrigger: {
       trigger: '.section-contact',
+      markers: false,
+      start: '-20% top',
+      end: 'bottom bottom',
       scrub: 1
     },
-    // y: "50vh",
-    opacity: 0.1
+    ease: "none",
+    scale: 1.5,
+    opacity: 0,
+    onUpdate: () => {
+      contactTimelineProgress.value = tween.progress()
+      // console.log('this.$tsi.pageScrollProgress', this.$tsi.pageScrollProgress)
+    }
   })
 }
 
@@ -96,6 +107,7 @@ useHead({
 
   .scroll-trigger
     opacity: 0
+    visibility: hidden
 
   .sketch-container
     position absolute
@@ -110,14 +122,10 @@ useHead({
     // background-color: var(--bg-color)
     // background-color: white
 
+  .section-collab
+    min-height: 50vh
+
   .section-hero
     // background: red
 
-  .section-contact
-    padding-top: 25dvh
-    background-color: white
-    z-index: 233
-
-    @media $mediaInMobile
-      padding-top: 10dvh
 </style>

@@ -1,7 +1,7 @@
 <template lang="pug">
 nuxt-layout( )
   nuxt-page
-  //- svg-filters
+  svg-filters( v-if="!$device.isSafari" )
 </template>
 
 <script lang="ts" setup>
@@ -18,6 +18,9 @@ onMounted(() => {
 
 <style lang="stylus">
 // Scaffolding
+::selection
+  background-color: brand(20)
+
 body
   margin: 0
   font-family: "Noto Sans SC", "Inter", "Roboto", "Helvetica", "Arial", sans-serif
@@ -27,7 +30,6 @@ body
   letter-spacing: 0.00938em
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  background-color: var(--bg-color)
 
   // Hide scrollbar
   &::-webkit-scrollbar

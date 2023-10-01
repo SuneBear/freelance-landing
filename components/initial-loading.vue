@@ -33,8 +33,10 @@ const onLeave = async (el: HTMLElement, done: () => void) => {
 <style lang="stylus">
 .initial-loading
   position absolute
+  z-index: 23
   width: 100%
   height: 100%
+  background: var(--bg-color)
 
   .loading-text
     margin-bottom: 20px
