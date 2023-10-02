@@ -30,6 +30,8 @@ body
   letter-spacing: 0.00938em
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  -webkit-overflow-scrolling: touch
+  overscroll-behavior-y: contain
 
   // Hide scrollbar
   &::-webkit-scrollbar

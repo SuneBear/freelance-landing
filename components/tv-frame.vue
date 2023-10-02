@@ -2,15 +2,19 @@
 .tv-frame-wrapper
   .tv-frame
     .tv-screen
-      tv-noise
-      .tv-screen-overlay
-        img(src="@/assets/frame.png")
-      tv-detector
-      tv-lines.tv-content
+      template( v-if="enableFrame" )
+        tv-noise
+        .tv-screen-overlay
+          img(src="@/assets/frame.png")
+        tv-detector
+        tv-lines.tv-content
+          slot
+      template(v-else)
         slot
 </template>
 
 <script lang="ts" setup>
+const enableFrame = ref(true)
 </script>
 
 <style lang="stylus">

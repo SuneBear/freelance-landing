@@ -4,7 +4,7 @@ hover-spotlight-card.business-card.flex.gap-40px(
   :rotateFactor="5"
   :light-size="500"
   enableOutside
-  :enableHover="false"
+  :lightSize="200"
   :enableParallax="!$device.isSafari"
   @click="handleCardClick"
   data-augmented-ui="tr-clip bl-clip br-clip-y both"

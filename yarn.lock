@@ -1253,6 +1253,11 @@
     "@tufjs/canonical-json" "2.0.0"
     minimatch "^9.0.3"
 
+"@types/animejs@^3.1.8":
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/@types/animejs/-/animejs-3.1.8.tgz#524203d7b3cf2ca7329aa917a11a0fdc5f2e28bb"
+  integrity sha512-jBMAq/l14WKPrKGoSbeVBqT94BOwikQ6V3F63K/rduUE/HE/zQ6qFEhUoISyUm+Yg7qdRYbrToJ04mKHRtybtw==
+
 "@types/estree@*", "@types/estree@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.1.tgz#aa22750962f3bf0e79d753d3cc067f010c95f194"
@@ -3915,6 +3920,11 @@ lazystream@^1.0.0:
   dependencies:
     readable-stream "^2.0.5"
 
+leader-line-new@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/leader-line-new/-/leader-line-new-1.1.9.tgz#22f5e5708dc54cb32beadffa015bc228a0fe61dc"
+  integrity sha512-x56aRYaqJTA4aAS2fgbSpvWKY3IxRXDSFeGkNBmCQ3LX44B3F1HEjcBTkCiK5I3W0nPWeUTWe7dTt59VtdfFWw==
+
 lilconfig@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.1.0.tgz#78e23ac89ebb7e1bfbf25b18043de756548e7f52"
@@ -5913,6 +5923,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+svg-dom-arrows@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/svg-dom-arrows/-/svg-dom-arrows-2.1.5.tgz#aafb8af43ebc837235c4415ee6151058843e605e"
+  integrity sha512-W/Gni1VDlxqODbLf7x23QvSJlHrzg91T/Jv2URTnLxqomdbH/2rhUG2VErYOgNtcr1c29nfcrg70pnWVZwEq1Q==
 
 svg-tags@^1.0.0:
   version "1.0.0"

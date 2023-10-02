@@ -1,5 +1,7 @@
 <template lang="pug">
-.page.page-home
+.page.page-home(
+  :style="pageStyle"
+)
   tv-frame
     .sketch-container( ref="sketchContainer" )
 
@@ -7,16 +9,22 @@
       v-if="config.public.needLoading"
     )
 
+    //- 这次内容因为有一些不在 Frame 中，导致 Layer 分了好多层，这样无法 Pin 来 fixed，还需要手动同步滚动进度
+    //- Fixed layer
+    section-hero
+
+    //- Scrollable frame layer
     .content-wrapper
-      //- .section.section-hero
+      .section.section-hero
       //- .section.section-gallery
       section-collab
 
   .scroll-trigger
-    //- .section.section-hero
+    .section.section-hero
     //- .section.section-gallery
     .section.section-collab
 
+  //- Non frame content layer
   section-contact(
     :timelineProgress="contactTimelineProgress"
   )
@@ -30,6 +38,12 @@ const store = useStore()
 const config = useRuntimeConfig()
 const contactTimelineProgress = ref(0)
 
+const pageStyle = computed(() => {
+  return {
+    '--collab-height': store.ui.collabHeight ? `${store.ui.collabHeight}px` : '100vh'
+  }
+})
+
 const initSketch = () => {
   init({
     scrollContainer: document.body
@@ -37,22 +51,51 @@ const initSketch = () => {
 }
 
 const setupScrollTrigger = () => {
-  // @FIXME: 同步两个 Wrapper 的滚动值
+  syncContentAndTriggerScrollTop()
+  setupCollabScrollTrigger()
+  setupContactScrollTrigger()
+}
+
+// @Hack: 同步两个 Wrapper 的滚动值
+const syncContentAndTriggerScrollTop = () => {
   const scrollSync = gsap.to('.content-wrapper', {
     scrollTrigger: {
       trigger: '.scroll-trigger',
       start: "top top",
-      // end: "bottom",
+      end: "bottom",
       markers: false,
       scrub: 1
     },
     y: "-100%",
     ease: "none",
-    onUpdate: () => {
+    onUpdate: function () {
+      store.ui.contentScrollProgress = this.progress()
     }
   })
+}
 
-  setupContactScrollTrigger()
+const setupCollabScrollTrigger = () => {
+  // @TODO: 支持配置 Scan 模式，可以和 collabScrollProgress 关联起来
+  const tween = gsap.to(store.ui, {
+    scrollTrigger: {
+      trigger: '.scroll-trigger .section-collab',
+      start: 'top center',
+      once: true,
+      scrub: 1
+    },
+    ease: "none",
+    onStart: () => {
+      gsap.to(store.ui, {
+        collabScrollProgress: 1,
+        ease: 'none',
+        duration: 5,
+        overwrite: true,
+        onUpdate: () => {
+          // console.log('update', store.ui.collabScrollProgress)
+        }
+      })
+    }
+  })
 }
 
 const setupContactScrollTrigger = () => {
@@ -67,8 +110,8 @@ const setupContactScrollTrigger = () => {
     ease: "none",
     scale: 1.5,
     opacity: 0,
-    onUpdate: () => {
-      contactTimelineProgress.value = tween.progress()
+    onUpdate: function () {
+      contactTimelineProgress.value = this.progress()
       // console.log('this.$tsi.pageScrollProgress', this.$tsi.pageScrollProgress)
     }
   })
@@ -76,11 +119,13 @@ const setupContactScrollTrigger = () => {
 
 onMounted(() => {
   initSketch()
-  setupScrollTrigger()
-  scrollToHeroAfterLoading()
+  initHeroAfterLoading()
+  setTimeout(() => {
+    setupScrollTrigger()
+  }, 300)
 })
 
-const scrollToHeroAfterLoading = () => {
+const initHeroAfterLoading = () => {
   watch(() => store.ui.isLoading, () => {
     console.log("TODO: Switch to hero")
   })
@@ -104,15 +149,30 @@ useHead({
   .content-wrapper
     position relative
     z-index 2
+    will-change: transform
 
   .scroll-trigger
     opacity: 0
     visibility: hidden
 
+    .section-collab
+      height: var(--collab-height, 100vh)
+
   .sketch-container
     position absolute
     width: 100%
     height: 100%
+
+  .fixed-container
+    position fixed
+    width: 100%
+    min-height: 100vh
+    min-height: 100dvh
+    z-index 3
+    pointer-events: none
+
+    > *
+      position: absolute
 
   .section
     position relative
@@ -126,6 +186,7 @@ useHead({
     min-height: 50vh
 
   .section-hero
+    min-height: 200vh
     // background: red
 
 </style>
