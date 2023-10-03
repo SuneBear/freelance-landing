@@ -31,11 +31,13 @@
 </template>
 
 <script lang="ts" setup>
-import { init } from '@/components/landing-sketch'
+import { preInit, init, resize } from '@/components/landing-sketch'
+import { useResizeObserver } from '@vueuse/core'
 import gsap from 'gsap'
 
 const store = useStore()
 const config = useRuntimeConfig()
+const sketchContainer = ref()
 const contactTimelineProgress = ref(0)
 
 const pageStyle = computed(() => {
@@ -46,7 +48,12 @@ const pageStyle = computed(() => {
 
 const initSketch = () => {
   init({
+    sketchContainer: sketchContainer.value,
     scrollContainer: document.body
+  })
+  useResizeObserver(sketchContainer.value, async (entries) => {
+    const entry = entries[0]
+    resize(entry.contentRect.width, entry.contentRect.height)
   })
 }
 
@@ -85,13 +92,14 @@ const setupCollabScrollTrigger = () => {
     },
     ease: "none",
     onStart: () => {
+      console.log('start')
       gsap.to(store.ui, {
         collabScrollProgress: 1,
         ease: 'none',
         duration: 5,
         overwrite: true,
         onUpdate: () => {
-          // console.log('update', store.ui.collabScrollProgress)
+          console.log('update', store.ui.collabScrollProgress)
         }
       })
     }
@@ -118,17 +126,20 @@ const setupContactScrollTrigger = () => {
 }
 
 onMounted(() => {
-  initSketch()
-  initHeroAfterLoading()
-  setTimeout(() => {
-    setupScrollTrigger()
-  }, 300)
+  preInit()
+  watch(() => store.ui.isLoading, (val) => {
+    if (!val) {
+      initSketch()
+      initHeroAfterLoading()
+    }
+    setTimeout(() => {
+      setupScrollTrigger()
+    }, 0)
+  })
 })
 
 const initHeroAfterLoading = () => {
-  watch(() => store.ui.isLoading, () => {
-    console.log("TODO: Switch to hero")
-  })
+  console.log("TODO: Switch to hero")
 }
 
 useHead({
@@ -150,6 +161,7 @@ useHead({
     position relative
     z-index 2
     will-change: transform
+    // transition: transform 168ms
 
   .scroll-trigger
     opacity: 0
@@ -162,6 +174,7 @@ useHead({
     position absolute
     width: 100%
     height: 100%
+    filter: invert(100%)
 
   .fixed-container
     position fixed
@@ -186,7 +199,9 @@ useHead({
     min-height: 50vh
 
   .section-hero
-    min-height: 200vh
     // background: red
+
+  .section-gallery
+    min-height: 200vh
 
 </style>

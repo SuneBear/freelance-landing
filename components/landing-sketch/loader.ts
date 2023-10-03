@@ -86,6 +86,7 @@ class LoaderManager {
     this.loaders.push({
       extensions: ['glb', 'gltf'],
       action: (_resource, callback) => {
+        loadingManager.itemStart(_resource.url)
         gltfLoader.load(_resource.url, _data => {
           this.fileLoadEnd(_resource, _data, callback)
         })

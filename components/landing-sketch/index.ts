@@ -3,26 +3,43 @@ import { gsap } from 'gsap'
 import { loadingManager } from './common'
 import { assetManager } from './asset'
 import { clock, runLoop } from './loop'
+import { world } from './world'
+
+// 这个文件相当于 Sketch.js，在 World 和 Vue Page 之间搭建桥梁
 
 const MIN_LOADING_DURATION = 5000
 const LEAVE_LOADING_DURATION = 1200
 
+interface InitOptions {
+  scrollContainer?: HTMLElement
+  sketchContainer: HTMLDivElement
+}
+
 export const init = ({
-  scrollContainer = document.body
-}) => {
+  scrollContainer = document.body,
+  sketchContainer
+}: InitOptions) => {
   const store = useStore()
-  assetManager.loadDefaultAssets()
+  world.init(sketchContainer)
   runLoop(loop)
-  listenToLoading()
   console.log('Init options', scrollContainer)
 }
 
-// @TODO: 传 World Loop 进度
-const loop = () => {
-
+export const preInit = () => {
+  assetManager.loadDefaultAssets()
+  listenToLoading()
 }
 
-const listenToLoading = () => {
+export const resize = (width: number, height: number) => {
+  world.resize(width, height)
+}
+
+// @TODO: 传 World Loop 进度
+const loop = (delta: number) => {
+  world.update(delta)
+}
+
+export const listenToLoading = () => {
   const store = useStore()
   const config = useRuntimeConfig()
 

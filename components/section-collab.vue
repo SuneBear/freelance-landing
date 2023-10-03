@@ -10,7 +10,7 @@
         span 了解我的
         span.green 自由职业
         span 工作流
-      .section-desc 自从 2018 年开始远程工作，实现了只工作不上班。在创业公司我们用简洁且透明的协作方式来提高效率，利用节省下来的时间我去了很多地方游玩，学了很多舒适圈以外的东西。希望 24 年开始利用复业创造很多收入。
+      .section-desc 自从 2018 年开始远程工作，实现了只工作不上班。在创业公司我们用简洁且透明的协作方式来提高效率，利用节省下来的时间我去了很多地方游玩，学了很多舒适圈以外的东西。希望 24 年开始利用副业创造很多收入。
       .workflow-list.flex.flex-col.items-center
         //-  @TODO: 支持动态定位
         .dom-arrows(
@@ -74,9 +74,9 @@
           | 我会创建一个表格，对每一个任务做耗时预估，这样就能得出排期和报价方案。目前我一个工作日收费是
           icon-link(
             iconName="exchange-cny-line"
-          ) 1500 CNY
+          ) {{ costPerDay }} CNY
           | ，等值的美元或数字或者也是可接受的。假设一个需求耗时 10 个工作日，报价则为
-          | <code>1500 * 10 = 15000 CNY</code>
+          | <code>{{costPerDay}} * 10 = {{ costPerDay * 10 }} CNY</code>
 
         workflow-item.workflow-develop(
           title="3. 达成共识，开始迭代"
@@ -132,6 +132,7 @@ import { useResizeObserver } from '@vueuse/core'
 
 const store = useStore()
 const { isMobile } = useDevice()
+const costPerDay = ref(1600)
 const maskWrapper = ref()
 
 const setupResize = () => {

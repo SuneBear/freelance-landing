@@ -1,10 +1,8 @@
 import * as THREE from 'three'
+import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { loaderManager } from './loader'
 
-enum ASSET_ID {
-  Gradient_Noise
-}
 export interface Asset {
   id: ASSET_ID
   url: string
@@ -16,10 +14,6 @@ export interface Asset {
 
 interface LoadedAsset<T = unknown> extends Asset {
   data: T
-}
-
-interface DefaultAssetsMap {
-  [ASSET_ID.Gradient_Noise]: LoadedAsset<THREE.Texture>
 }
 
 const REPEAT_TEXTURE_OPTIONS = {
@@ -42,12 +36,26 @@ const NEAREST_TEXTURE_OPTIONS = {
   magFilter: THREE.NearestFilter
 }
 
+export enum ASSET_ID {
+  Gradient_Noise,
+  Bg_Model
+}
+
+interface DefaultAssetsMap {
+  [ASSET_ID.Gradient_Noise]: LoadedAsset<THREE.Texture>
+  [ASSET_ID.Bg_Model]: LoadedAsset<GLTF>
+}
+
 const DEFAULT_ASSETS: Asset[] = [
   {
     id: ASSET_ID.Gradient_Noise,
     url: '/textures/T_Random_54.png',
     type: 'texture',
     options: REPEAT_TEXTURE_OPTIONS
+  },
+  {
+    id: ASSET_ID.Bg_Model,
+    url: '/models/bg.glb'
   }
 ]
 
@@ -65,7 +73,7 @@ class AssetManager {
     })
   }
 
-  getItem(id: ASSET_ID): DefaultAssetsMap[ASSET_ID] {
+  getItem<T extends keyof DefaultAssetsMap>(id: T): DefaultAssetsMap[T] {
     return this._assets[id]
   }
 
