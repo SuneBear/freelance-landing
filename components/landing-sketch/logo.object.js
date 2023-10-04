@@ -184,7 +184,7 @@ export class Logo {
 
   // 用整体 Scale 的方式处理 Resize
   resize(width = window.innerWidth, height = window.innerHeight) {
-    const scale = Math.max(0.43, Math.min(1, width/800))
+    const scale = Math.max(0.43, Math.min(1, width/850))
     this.uniforms.resolution.value.x = width
     this.uniforms.resolution.value.y = height
     this.mesh.scale.set(scale, scale, 1)

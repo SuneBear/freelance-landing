@@ -21,7 +21,7 @@ const enableFrame = ref(true)
 <style lang="stylus">
 .tv-frame
   --frame-size: 0
-  position fixed
+  position absolute
   z-index: 2
   top: 50%
   left: 50%
@@ -41,7 +41,7 @@ const enableFrame = ref(true)
 
   &-wrapper
     min-height: 100vh
-    min-height: 100dvh
+    // min-height: 100dvh
     width: 100%
     position fixed
     z-index: 20

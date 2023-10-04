@@ -20,12 +20,13 @@ import anime from 'animejs'
 import { useResizeObserver } from '@vueuse/core'
 
 const PAGE_BAR_AMOUNT = 50
+// const BAR_GAP_PROGRESS = 1
 const BAR_GAP_PROGRESS = 0.333
 const BAR_SYNC_AMOUNT = (1 - BAR_GAP_PROGRESS) / BAR_GAP_PROGRESS
 
 const BAR_DELAY    = 100
 const RENDER_DELAY = 1 + 280 - BAR_DELAY
-const BAR_DURATION = 130
+const BAR_DURATION = 530
 
 const props = withDefaults(defineProps<{
   progress: number,
@@ -41,6 +42,8 @@ const el = ref(null)
 
 const state = reactive({
   pageWidth: 0,
+  isRunning: false,
+  runningTime: 4,
   pageEnterBarIndex: 0,
   pageEnterBarProgress: 0
 })
@@ -49,6 +52,38 @@ useResizeObserver(el, (entries) => {
   const entry = entries[0]
   state.pageWidth = entry.contentRect.width
 })
+
+const animate = () => {
+  if (state.isRunning) return
+
+  const animeOptions = () => ({
+    targets: state,
+    delay: state.pageEnterBarProgress ? 0 : BAR_DELAY * 3,
+    duration: BAR_DURATION * (1.4 - state.pageEnterBarProgress),
+    pageEnterBarProgress: 1,
+    easing: 'linear',
+    complete: () => {
+      if (
+        state.pageEnterBarIndex + 1 >= PAGE_BAR_AMOUNT
+      ) {
+        return
+      } else {
+        state.pageEnterBarIndex += 1
+        state.pageEnterBarProgress = 1 - BAR_GAP_PROGRESS
+      }
+      state.runningTime--
+      if (state.runningTime > 0) {
+        anime(animeOptions())
+      } else {
+        state.isRunning = false
+      }
+    }
+  })
+
+  state.isRunning = true
+  state.runningTime = 4
+  anime(animeOptions())
+}
 
 // @TODO: 优化 Placeholder 动画
 const rootStyles = computed(() => {
@@ -68,7 +103,7 @@ const rootStyles = computed(() => {
       enterBarDiff <= BAR_SYNC_AMOUNT
     ) {
       const width = (state.pageEnterBarProgress - BAR_GAP_PROGRESS * enterBarDiff - 1) * state.pageWidth
-      positions.push(`${width}px`)
+      positions.push(`${width * 2}px`)
     } else if (i > state.pageEnterBarIndex) {
       positions.push(`${-state.pageWidth}px`)
     } else {
@@ -89,17 +124,23 @@ const rootStyles = computed(() => {
   }
 
   return {
-    '--cursor-transform': `translate3d(0, ${(state.pageEnterBarIndex) * 100}%, 0)`,
-    '--cursor-text-transform': `translate3d(${state.pageWidth * state.pageEnterBarProgress}px, 0, 0)`,
+    '--cursor-transform': `translate3d(0, ${(state.pageEnterBarIndex + 2) * 100}%, 0)`,
+    // '--cursor-text-transform': `translate3d(${state.pageWidth * state.pageEnterBarProgress / 2}px, 0, 0)`,
     '--reveal-position-x': positions.join(','),
     '--placeholder-position-x': props.needPlaceholder && placeholderPositions.join(',')
   }
 })
 
-watchEffect(() => {
-  const bar = props.progress / 0.02
-  state.pageEnterBarIndex = Math.trunc(bar)
-  state.pageEnterBarProgress = bar - state.pageEnterBarIndex
+watch(() => props.progress, () => {
+  animate()
+
+  if (props.progress >= 1) {
+    state.pageEnterBarIndex = PAGE_BAR_AMOUNT
+  }
+  // @hack: 用 progress 计算出 barIndex
+  // const bar = props.progress / 0.02
+  // state.pageEnterBarIndex = props.barIndex
+  // state.pageEnterBarProgress = bar - state.pageEnterBarIndex
 })
 
 defineExpose({
@@ -148,7 +189,7 @@ defineExpose({
       height: 22px
       background: brand(30)
       font-size: 12px
-      // transform: var(--cursor-text-transform)
+      transform: var(--cursor-text-transform)
       // transition: 168ms
 
   .placeholder-layer

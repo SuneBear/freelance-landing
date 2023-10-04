@@ -58,13 +58,14 @@ onMounted(() => {
 
 <style lang="stylus">
 .section-contact
-  padding-top: 16dvh
+  min-height: 100svh
+  padding-top: 16svh
   // background-color: white
   z-index: 233
   position relative
 
   @media $mediaInMobile
-    padding-top: 6dvh
+    padding-top: 6svh
 
   .contact-title
     font-size: fluid-value(20, 40)

@@ -39,6 +39,7 @@ import gsap from 'gsap'
 const store = useStore()
 const config = useRuntimeConfig()
 const sketchContainer = ref()
+const collabTimelineProgress = ref(0)
 const contactTimelineProgress = ref(0)
 
 const pageStyle = computed(() => {
@@ -119,13 +120,21 @@ const setupCollabScrollTrigger = () => {
     },
     ease: "none",
     // collabScrollProgress: 1,
+    onComplete: () => {
+      gsap.to(store.ui, {
+        collabScrollProgress: 1,
+        ease: 'none',
+        duration: 0.4,
+      })
+    },
     onUpdate: () => {
       // 这样做就只支持单向扫描
+      // @TODO: 把这部分逻辑放到 mask-scan-reveal 中
       if (store.ui.collabScrollProgress > 1) return
       gsap.to(store.ui, {
         collabScrollProgress: "+=0.02",
         ease: 'none',
-        duration: 0.2,
+        duration: 1,
         // overwrite 会覆盖 store.ui 上所有的 tween，谨慎使用
         // overwrite: true,
         onUpdate: () => {
@@ -172,7 +181,7 @@ onMounted(() => {
 const setupCursorListener = () => {
   const { x, y } = useMouse({ type: 'client' })
 
-  store.ui.cursor.x = window.innerWidth / 1.7
+  store.ui.cursor.x = window.innerWidth / 1.9
   store.ui.cursor.y = window.innerHeight / 2
 
   watch([x, y], () => {
@@ -221,24 +230,25 @@ useHead({
     height: 100%
     // filter: invert(100%)
 
+  .section
+    position relative
+    width: 100%
+    min-height: 100vh
+    // min-height: 100dvh
+    // background-color: var(--bg-color)
+    // background-color: white
+
   .fixed-container
     position fixed
     width: 100%
     min-height: 100vh
-    min-height: 100dvh
+    min-height: 100svh
     z-index 3
     pointer-events: none
 
     > *
       position: absolute
-
-  .section
-    position relative
-    width: 100%
-    min-height: 100vh
-    min-height: 100dvh
-    // background-color: var(--bg-color)
-    // background-color: white
+      min-height: 100%
 
   .section-collab
     min-height: 50vh

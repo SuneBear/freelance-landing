@@ -10,7 +10,7 @@
 </script>
 
 <style lang="stylus">
-.section-hero
+.fixed-container .section-hero
   opacity: 0
 
   .scroll-tips
