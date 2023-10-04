@@ -2,10 +2,9 @@
 hover-spotlight-card.business-card.flex.gap-40px(
   class="lt-sm:flex-col"
   :rotateFactor="5"
-  :light-size="500"
-  enableOutside
   :lightSize="200"
-  :enableParallax="!$device.isSafari"
+  enableOutside
+  :enableParallax="!$device.isSafari && store.ui.contentScrollProgress > 0.9"
   @click="handleCardClick"
   data-augmented-ui="tr-clip bl-clip br-clip-y both"
 )
@@ -23,6 +22,7 @@ hover-spotlight-card.business-card.flex.gap-40px(
 <script lang="ts" setup>
 import { useClipboard } from '@vueuse/core'
 const { copy } = useClipboard()
+const store = useStore()
 
 const birthDate = new Date('1994-10-11')
 const nowDate = new Date()

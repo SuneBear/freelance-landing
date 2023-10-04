@@ -29,6 +29,7 @@ export class ModuleManager {
   add<T extends Module>(Class: any) {
     const module = new Class(this.world)
     module.setup()
+    this.modules.push(module)
   }
 
   update (delta: number) {

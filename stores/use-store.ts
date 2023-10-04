@@ -5,6 +5,16 @@ type MainState = {
     isLoading: boolean
     loadingProgress: number
 
+    cursor: {
+      x: number,
+      y: number
+    },
+
+    viewport: {
+      width: number,
+      height: number
+    },
+
     contentScrollProgress: number
     heroScrollEnterProgress: number
     heroScrollLeaveProgress: number
@@ -22,6 +32,16 @@ export const useStore = defineStore('main', {
     ui: {
       isLoading: true,
       loadingProgress: 0,
+
+      cursor: {
+        x: 0,
+        y: 0
+      },
+
+      viewport: {
+        width: 0,
+        height: 0
+      },
 
       contentScrollProgress: 0,
       heroScrollEnterProgress: 0,

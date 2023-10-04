@@ -10,7 +10,8 @@
         tv-lines.tv-content
           slot
       template(v-else)
-        slot
+        .tv-content
+          slot
 </template>
 
 <script lang="ts" setup>

@@ -33,6 +33,7 @@
 <script lang="ts" setup>
 import { preInit, init, resize } from '@/components/landing-sketch'
 import { useResizeObserver } from '@vueuse/core'
+import { useMouse } from '@vueuse/core'
 import gsap from 'gsap'
 
 const store = useStore()
@@ -53,7 +54,12 @@ const initSketch = () => {
   })
   useResizeObserver(sketchContainer.value, async (entries) => {
     const entry = entries[0]
-    resize(entry.contentRect.width, entry.contentRect.height)
+    const { width, height } = entry.contentRect
+    store.ui.viewport = {
+      width,
+      height
+    }
+    resize(width, height)
   })
 }
 
@@ -99,7 +105,7 @@ const setupCollabScrollTrigger = () => {
         duration: 5,
         overwrite: true,
         onUpdate: () => {
-          console.log('update', store.ui.collabScrollProgress)
+          // console.log('update', store.ui.collabScrollProgress)
         }
       })
     }
@@ -127,6 +133,7 @@ const setupContactScrollTrigger = () => {
 
 onMounted(() => {
   preInit()
+  setupCursorListener()
   watch(() => store.ui.isLoading, (val) => {
     if (!val) {
       initSketch()
@@ -137,6 +144,15 @@ onMounted(() => {
     }, 0)
   })
 })
+
+const setupCursorListener = () => {
+  const { x, y } = useMouse({ touch: false, type: 'client' })
+
+  watchEffect(() => {
+    store.ui.cursor.x = x.value
+    store.ui.cursor.y = y.value
+  })
+}
 
 const initHeroAfterLoading = () => {
   console.log("TODO: Switch to hero")
@@ -174,7 +190,7 @@ useHead({
     position absolute
     width: 100%
     height: 100%
-    filter: invert(100%)
+    // filter: invert(100%)
 
   .fixed-container
     position fixed

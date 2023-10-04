@@ -2,7 +2,7 @@
 .hover-spotlight-card(
   ref="el"
   :class="{ 'enable-parallax': enableParallax }"
-  :style="{ '--cursor-x': elementX, '--cursor-y': elementY, '--light-size': `${lightSize}px`, ...transformStyle }"
+  :style="{ '--light-size': `${lightSize}px`, ...transformStyle }"
 )
   .spotlight( v-if="enableHover" )
   slot
@@ -38,6 +38,8 @@ const transformStyle = computed(() => {
   const rx = clamp(mousePX * props.rotateFactor, -props.rotateFactor * 2, props.rotateFactor * 2)
   const ry = clamp(mousePY * props.rotateFactor, -props.rotateFactor * 2, props.rotateFactor * 2)
   return {
+    '--cursor-x': elementX.value,
+    '--cursor-y': elementY.value,
     transform: (cardMouse.isOutside.value && !props.enableOutside) ? null : `perspective(800px) rotateY(${rx}deg) rotateX(${ry}deg)`
   }
 })
