@@ -40,6 +40,8 @@ const props = withDefaults(defineProps<{
   --aug-tr-inset2: 60%
   max-width: var(--width)
   position relative
+  background-color: rgba(244, 244, 244, 0.5)
+  backdrop-filter: blur(40px)
 
   &:before
     content: ''

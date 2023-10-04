@@ -19,7 +19,8 @@
     "nuxt-icons": "^3.2.1",
     "pug": "^3.0.2",
     "stylus": "^0.60.0",
-    "unplugin-icons": "^0.17.0"
+    "unplugin-icons": "^0.17.0",
+    "vite-plugin-glsl": "^1.1.2"
   },
   "dependencies": {
     "@types/three": "^0.156.0",

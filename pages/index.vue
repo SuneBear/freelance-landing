@@ -48,10 +48,6 @@ const pageStyle = computed(() => {
 })
 
 const initSketch = () => {
-  init({
-    sketchContainer: sketchContainer.value,
-    scrollContainer: document.body
-  })
   useResizeObserver(sketchContainer.value, async (entries) => {
     const entry = entries[0]
     const { width, height } = entry.contentRect
@@ -59,12 +55,20 @@ const initSketch = () => {
       width,
       height
     }
+    if (!store.context.isInited) {
+      init({
+        sketchContainer: sketchContainer.value,
+        scrollContainer: document.body
+      })
+      store.context.isInited = true
+    }
     resize(width, height)
   })
 }
 
 const setupScrollTrigger = () => {
   syncContentAndTriggerScrollTop()
+  setupHeroScrollTrigger()
   setupCollabScrollTrigger()
   setupContactScrollTrigger()
 }
@@ -77,7 +81,8 @@ const syncContentAndTriggerScrollTop = () => {
       start: "top top",
       end: "bottom",
       markers: false,
-      scrub: 1
+      scrub: 1,
+      id: 'scrollSync'
     },
     y: "-100%",
     ease: "none",
@@ -87,28 +92,47 @@ const syncContentAndTriggerScrollTop = () => {
   })
 }
 
+const setupHeroScrollTrigger = () => {
+  gsap.to(store.ui, {
+    scrollTrigger: {
+      trigger: '.scroll-trigger .section-hero',
+      markers: false,
+      start: 'top',
+      end: 'bottom 20%',
+      scrub: 1,
+      id: 'heroScrollLeaveProgress'
+    },
+    ease: "none",
+    heroScrollLeaveProgress: 1
+  })
+}
+
 const setupCollabScrollTrigger = () => {
   // @TODO: 支持配置 Scan 模式，可以和 collabScrollProgress 关联起来
   const tween = gsap.to(store.ui, {
     scrollTrigger: {
       trigger: '.scroll-trigger .section-collab',
       start: 'top center',
-      once: true,
-      scrub: 1
+      // end: 'bottom 40%',
+      scrub: 1,
+      id: 'collabScrollProgress'
     },
     ease: "none",
-    onStart: () => {
-      console.log('start')
+    // collabScrollProgress: 1,
+    onUpdate: () => {
+      // 这样做就只支持单向扫描
+      if (store.ui.collabScrollProgress > 1) return
       gsap.to(store.ui, {
-        collabScrollProgress: 1,
+        collabScrollProgress: "+=0.02",
         ease: 'none',
-        duration: 5,
-        overwrite: true,
+        duration: 0.2,
+        // overwrite 会覆盖 store.ui 上所有的 tween，谨慎使用
+        // overwrite: true,
         onUpdate: () => {
           // console.log('update', store.ui.collabScrollProgress)
         }
       })
-    }
+    },
   })
 }
 
@@ -146,16 +170,21 @@ onMounted(() => {
 })
 
 const setupCursorListener = () => {
-  const { x, y } = useMouse({ touch: false, type: 'client' })
+  const { x, y } = useMouse({ type: 'client' })
 
-  watchEffect(() => {
+  store.ui.cursor.x = window.innerWidth / 1.7
+  store.ui.cursor.y = window.innerHeight / 2
+
+  watch([x, y], () => {
     store.ui.cursor.x = x.value
     store.ui.cursor.y = y.value
   })
 }
 
 const initHeroAfterLoading = () => {
-  console.log("TODO: Switch to hero")
+  setTimeout(() => {
+    store.ui.heroEnterProgress = 1
+  }, 200)
 }
 
 useHead({

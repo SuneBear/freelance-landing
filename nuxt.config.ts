@@ -1,3 +1,5 @@
+import glsl from 'vite-plugin-glsl'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
@@ -34,6 +36,9 @@ export default defineNuxtConfig({
   ],
 
   vite: {
+    plugins: [
+      glsl()
+    ],
     css: {
       preprocessorOptions: {
         stylus: {
@@ -45,7 +50,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "与我协作，让 <div> 绽放光芒",
+      title: "与我协作，让 <div> 变成杰作",
       // @TODO：配置 OG
       meta: [
         {

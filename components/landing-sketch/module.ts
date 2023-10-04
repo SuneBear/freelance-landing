@@ -16,6 +16,10 @@ export class Module {
 
   }
 
+  resize (width: number, height: number) {
+
+  }
+
 }
 
 export class ModuleManager {
@@ -35,6 +39,12 @@ export class ModuleManager {
   update (delta: number) {
     this.modules.map(module => {
       module.update(delta)
+    })
+  }
+
+  resize (width: number, height: number) {
+    this.modules.map(module => {
+      module.resize(width, height)
     })
   }
 

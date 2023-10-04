@@ -38,11 +38,15 @@ const NEAREST_TEXTURE_OPTIONS = {
 
 export enum ASSET_ID {
   Gradient_Noise,
-  Bg_Model
+  Fluid_Texture,
+  Div_Logo_Texture,
+  Bg_Model,
 }
 
 interface DefaultAssetsMap {
   [ASSET_ID.Gradient_Noise]: LoadedAsset<THREE.Texture>
+  [ASSET_ID.Fluid_Texture]: LoadedAsset<THREE.Texture>
+  [ASSET_ID.Div_Logo_Texture]: LoadedAsset<THREE.Texture>
   [ASSET_ID.Bg_Model]: LoadedAsset<GLTF>
 }
 
@@ -52,6 +56,17 @@ const DEFAULT_ASSETS: Asset[] = [
     url: '/textures/T_Random_54.png',
     type: 'texture',
     options: REPEAT_TEXTURE_OPTIONS
+  },
+  {
+    id: ASSET_ID.Fluid_Texture,
+    url: '/textures/fluid.png',
+    type: 'texture',
+    options: REPEAT_TEXTURE_OPTIONS
+  },
+  {
+    id: ASSET_ID.Div_Logo_Texture,
+    url: '/textures/logo-div.png',
+    type: 'texture'
   },
   {
     id: ASSET_ID.Bg_Model,

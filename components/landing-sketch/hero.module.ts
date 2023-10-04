@@ -1,18 +1,25 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 import { Module } from './module'
 import { assetManager, ASSET_ID } from './asset'
 import { control } from './control'
+import { Logo } from './logo.object'
 
 const CAMERA_VIEW_POSITION_Z = 1.5
 
 export class HeroModule extends Module {
   bgScene: THREE.Group
+  logo: Logo
   cameraLookAt = new THREE.Vector3(0, 0, 0)
   gridMaterial: THREE.MeshStandardMaterial
+  leaveTimeline: gsap.core.Timeline
 
   setup () {
     this.setupGrid()
+    this.setupLogo()
+    this.setupAnimateLeaveTimeline()
+    this.listenToStore()
   }
 
   setupGrid () {
@@ -22,25 +29,90 @@ export class HeroModule extends Module {
     const bgScene = bgModelAsset.data.scene
 
     bgScene.traverse((obj: any) => {
-      if (obj.name.includes('Grid')) {
+      if (obj.name === 'Grid') {
         const material = obj.material as THREE.MeshStandardMaterial
         // material.color.set(0x000000)
-        material.opacity *= 2
+        material.opacity *= 1
         material.emissive.set(0x808080)
         this.gridMaterial = material
       }
 
-      if (obj.name.includes('Grid_Point')) {
+      if (obj.name === 'Grid_point') {
         const material = obj.material as THREE.MeshStandardMaterial
-        material.opacity *= 10
-        material.emissive.set(0x000000)
+        material.opacity = 0.5
+        material.emissive.set(0x2dd018)
       }
     })
 
-    camera.position.set(0, 0, CAMERA_VIEW_POSITION_Z)
-
     scene.add(bgScene)
     this.bgScene = bgScene
+  }
+
+  setupLogo() {
+    this.logo = new Logo({ world: this.world })
+    this.logo.init()
+  }
+
+  async animateEnter () {
+    const { camera } = this.world
+
+    // @TODO：优化摄像机路径
+    gsap.fromTo(camera.position, {
+      z: 3,
+      y: -10
+    }, {
+      z: CAMERA_VIEW_POSITION_Z,
+      y: 0,
+      duration: 2
+    })
+    this.logo.animateIn()
+    gsap.to('.fixed-container .section-hero', {
+      opacity: 1,
+      delay: 2
+    })
+  }
+
+  setupAnimateLeaveTimeline () {
+    this.leaveTimeline = gsap.timeline({
+      paused: true
+    })
+    .to(this.logo.uniforms.uAlpha, { value: 0 })
+    .to(this.gridMaterial, { opacity: 0.02, onUpdate: () => {
+      this.gridMaterial.needsUpdate = true
+    }}, 0)
+    .to('.scroll-tips', { opacity: 0 }, 0)
+
+    this.logo.outlines.map((outline: any, i) => {
+      this.leaveTimeline.to(outline.material.uniforms.uAlpha, {
+        value: 0
+      }, i + 0.05)
+    })
+
+  }
+
+  listenToStore () {
+    const store = useStore()
+    const { touchTexture } = this.world
+
+    watch(store.ui.cursor, () => {
+      touchTexture.addTouch({
+        x: control.cursor.ratio.x,
+        y: 1 - control.cursor.ratio.y
+      })
+    })
+
+    watch(() => store.ui.heroEnterProgress, (val) => {
+      this.animateEnter()
+    })
+
+    watch(() => store.ui.heroScrollLeaveProgress, (val) => {
+      if (!store.ui.heroEnterProgress) return
+      this.leaveTimeline.progress(val)
+    })
+  }
+
+  resize(width: number, height: number) {
+    this.logo.resize(width, height)
   }
 
   updatePan () {
@@ -54,8 +126,10 @@ export class HeroModule extends Module {
     if (!isNaN(panX)) {
       // scene.rotation.y = -panX * stensity
       // scene.rotation.x = -panY * instensity
-      camera.position.y = panY * instensity + this.cameraLookAt.x
-      camera.position.x = panX * instensity + this.cameraLookAt.y
+      // camera.position.y = panY * instensity + this.cameraLookAt.x
+      // camera.position.x = panX * instensity + this.cameraLookAt.y
+      camera.position.y = camera.position.z * 0.5 * panY * instensity + this.cameraLookAt.x
+      camera.position.x = camera.position.z * panX * instensity + this.cameraLookAt.y
       camera.lookAt(this.cameraLookAt.x, this.cameraLookAt.y, camera.position.z - CAMERA_VIEW_POSITION_Z)
     }
 

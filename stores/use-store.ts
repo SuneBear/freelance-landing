@@ -16,7 +16,7 @@ type MainState = {
     },
 
     contentScrollProgress: number
-    heroScrollEnterProgress: number
+    heroEnterProgress: number
     heroScrollLeaveProgress: number
 
     collabScrollProgress: number
@@ -24,6 +24,7 @@ type MainState = {
   },
   context: {
     lastPath: string
+    isInited: boolean
   }
 }
 
@@ -44,7 +45,7 @@ export const useStore = defineStore('main', {
       },
 
       contentScrollProgress: 0,
-      heroScrollEnterProgress: 0,
+      heroEnterProgress: 0,
       heroScrollLeaveProgress: 0,
       collabScrollProgress: 0,
       collabHeight: 0,
@@ -52,6 +53,7 @@ export const useStore = defineStore('main', {
 
     context: {
       lastPath: '/',
+      isInited: false
     },
   } as MainState),
 

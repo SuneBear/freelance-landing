@@ -26,10 +26,10 @@ class Control {
       y: 0
     },
     mobileLimit: 0.5,
-    easing: 1,
+    easing: 2,
     amplitude: {
-      x: 0.05,
-      y: 0.05
+      x: 0.1,
+      y: 0.1
     },
   }
 
