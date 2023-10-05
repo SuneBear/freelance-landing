@@ -75,7 +75,7 @@
           icon-link(
             iconName="exchange-cny-line"
           ) {{ costPerDay }} CNY
-          | ，等值的美元或数字或者也是可接受的。假设一个需求耗时 10 个工作日，报价则为
+          | ，等值的美元或数字货币也是可接受的。假设一个需求耗时 10 个工作日，报价则为
           | <code>{{costPerDay}} * 10 = {{ costPerDay * 10 }} CNY</code>
 
         workflow-item.workflow-develop(
