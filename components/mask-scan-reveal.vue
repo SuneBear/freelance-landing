@@ -6,7 +6,7 @@
   .mask-cursor.flex.justify-center(
     v-if="needCursor && progress < 1 && progress > 0"
   )
-    .cursor-text 扫描中
+    .cursor-text {{ state.isRunning ? '扫描中' : '请滚动' }}
   .mask-layer.placeholder-layer(
     v-if="needPlaceholder"
   )
