@@ -6,7 +6,13 @@
   .mask-cursor.flex.justify-center(
     v-if="needCursor && progress < 1 && progress > 0"
   )
-    .cursor-text {{ state.isRunning ? '扫描中' : '请滚动' }}
+    .cursor-text
+      span(v-if="state.isRunning") 扫描中
+      text-scramble-typing(
+        v-else
+        start
+        newMessage="请滚动"
+      )
   .mask-layer.placeholder-layer(
     v-if="needPlaceholder"
   )
@@ -185,8 +191,8 @@ defineExpose({
 
     .cursor-text
       position relative
-      padding: 0 12px
-      height: 22px
+      padding: 2px 12px 0
+      height: 24px
       background: brand(30)
       font-size: 12px
       transform: var(--cursor-text-transform)

@@ -3,7 +3,7 @@ transition( @leave="onLeave" :css="false" )
   .initial-loading.anim-squiggly( v-if="store.ui.isLoading" )
     .flex.flex-col.items-center.justify-center.pt-30vh
       .loading-text.flex.justify-between
-        text-scramble(
+        text-scramble-loading(
           :paused="store.ui.loadingProgress >= 1"
         )
         //- .percent.font-chakra {{ percent }}

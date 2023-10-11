@@ -1,5 +1,8 @@
 <template lang="pug">
-.focus-card
+.focus-card(
+  :class="{ 'has-handle': !!onClick }"
+  @click="handleCardClick"
+)
   .focus-corner.top-left
   .focus-corner.top-right
   .focus-corner.bottom-left
@@ -10,6 +13,15 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps<{
+  onClick?: () => void
+}>()
+
+const handleCardClick = () => {
+  if (props.onClick) {
+    props.onClick()
+  }
+}
 </script>
 
 <style lang="stylus">
@@ -17,6 +29,14 @@
   position: relative
   padding: 12px 20px
   background-color: rgba(0, 0, 0, 0.05)
+
+  &.has-handle
+    cursor pointer
+    transition: 318ms
+    pointer-events all
+
+    &:hover
+      background-color: rgba(0, 0, 0, 0.2)
 
   .focus-corner
     position absolute

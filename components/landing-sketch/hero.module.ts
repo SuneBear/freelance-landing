@@ -54,6 +54,7 @@ export class HeroModule extends Module {
   }
 
   async animateEnter () {
+    const store = useStore()
     const { camera } = this.world
 
     // @TODO：优化摄像机路径
@@ -68,7 +69,10 @@ export class HeroModule extends Module {
     this.logo.animateIn()
     gsap.to('.fixed-container .section-hero', {
       opacity: 1,
-      delay: 2
+      delay: 2,
+      onComplete: () => {
+        store.ui.heroUIStart = true
+      }
     })
   }
 
