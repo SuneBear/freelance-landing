@@ -1230,6 +1230,11 @@
     "@sigstore/protobuf-specs" "^0.2.1"
     tuf-js "^2.1.0"
 
+"@studio-freight/lenis@^1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@studio-freight/lenis/-/lenis-1.0.26.tgz#c47ddeed8f9b72379f385696e900f8f484936f5c"
+  integrity sha512-PLpPMtYoo50Z1otpUpGONK/BkJ0nrE7pY6Q1+KMWuPup+S+XFR/FJOXGkrtISzc6DtHgilbi1b6xDgDluFHsaA==
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"

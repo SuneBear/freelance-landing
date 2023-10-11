@@ -23,6 +23,7 @@
     "vite-plugin-glsl": "^1.1.2"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.26",
     "@types/three": "^0.156.0",
     "@vueuse/core": "^10.4.1",
     "animejs": "^3.2.1",

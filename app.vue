@@ -11,10 +11,26 @@ import '~/styles/main.styl'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import Lenis from '@studio-freight/lenis'
+
+const setupSmoothScroll = () => {
+  const lenis = new Lenis({
+    normalizeWheel: true
+  })
+
+  lenis.on('scroll', ScrollTrigger.update)
+
+  gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000)
+  })
+
+  gsap.ticker.lagSmoothing(0)
+}
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
   gsap.registerPlugin(ScrollToPlugin)
+  setupSmoothScroll()
 })
 </script>
 
@@ -53,4 +69,20 @@ body
 
 *, :before, :after
   box-sizing: border-box
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 </style>
