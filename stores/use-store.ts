@@ -16,6 +16,7 @@ type MainState = {
     },
 
     scrollSpeed: number
+    swellProgress: number
     contentScrollProgress: number
     heroEnterProgress: number
     heroUIStart: boolean
@@ -47,6 +48,7 @@ export const useStore = defineStore('main', {
       },
 
       scrollSpeed: 0,
+      swellProgress: 0,
       contentScrollProgress: 0,
       heroEnterProgress: 0,
       heroUIStart: false,

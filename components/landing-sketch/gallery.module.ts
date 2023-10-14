@@ -95,6 +95,7 @@ export class GalleryModule extends Module {
   setup () {
     const { scene } = this.world
     this.group = new THREE.Group()
+    this.group.position.y = 0.1
     scene.add(this.group)
 
     // 只给 Gallery 用

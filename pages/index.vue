@@ -127,6 +127,7 @@ const setupGalleryScrollTrigger = () => {
   const smoother = ScrollTrigger.create({
     onUpdate: (self) => {
       store.ui.scrollSpeed = self.getVelocity()
+      console.log(111, store.ui.scrollSpeed)
       timer = setTimeout(() => {
         store.ui.scrollSpeed = 0
       }, 100)

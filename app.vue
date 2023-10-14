@@ -16,7 +16,7 @@ import Lenis from '@studio-freight/lenis'
 const setupSmoothScroll = () => {
   const lenis = new Lenis({
     normalizeWheel: true,
-    lerp: 0.15,
+    lerp: 0.2,
   })
 
   lenis.on('scroll', ScrollTrigger.update)

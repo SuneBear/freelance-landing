@@ -70,9 +70,11 @@ export class ProjectCaseObject {
     videoElement.muted = true
     videoElement.crossOrigin = 'anonymous'
     videoElement.src = this.options.recordVideoUrl
-    setTimeout(() => {
-      videoElement.play()
-    })
+    videoElement.onloadstart = () => {
+      setTimeout(() => {
+        videoElement.play()
+      })
+    }
     this.videoTexture = new THREE.VideoTexture(videoElement)
     this.videoTexture.flipY = this.options.flipY || false
     // this.videoTexture.magFilter = THREE.NearestFilter
@@ -143,7 +145,7 @@ export class ProjectCaseObject {
     }
 
     watch(() => store.ui.scrollSpeed, (val) => {
-      val = clamp(val, -100, 100)
+      val = clamp(val, -50, 50)
       gsap.to(this.screenUniforms.uOffset.value, {
         x: val * -0.002,
         overwrite: true,

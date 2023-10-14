@@ -5,6 +5,7 @@ import { Module } from './module'
 import { assetManager, ASSET_ID } from './asset'
 import { control } from './control'
 import { Logo } from './logo.object'
+import { clamp } from '@/utils/math'
 
 const CAMERA_VIEW_POSITION_Z = 1.5
 
@@ -33,7 +34,7 @@ export class HeroModule extends Module {
         const material = obj.material as THREE.MeshStandardMaterial
         // material.color.set(0x000000)
         material.opacity *= 1
-        material.emissive.set(0x808080)
+        material.emissive.set(0xcccccc)
         this.gridMaterial = material
       }
 
@@ -127,6 +128,7 @@ export class HeroModule extends Module {
       control.pan.value.y / control.pan.amplitude.y
     const instensity = 0.1
 
+    // 这里需要加上一个 Camera Offset，否则 Camera 位置永远是固定范围的
     if (!isNaN(panX)) {
       // scene.rotation.y = -panX * stensity
       // scene.rotation.x = -panY * instensity
@@ -134,6 +136,8 @@ export class HeroModule extends Module {
       // camera.position.x = panX * instensity + this.cameraLookAt.y
       camera.position.y = camera.position.z * 0.5 * panY * instensity + this.cameraLookAt.x
       camera.position.x = camera.position.z * panX * instensity + this.cameraLookAt.y
+      camera.position.x = clamp(camera.position.x, -1, 1)
+      camera.position.y = clamp(camera.position.y, -1, 1)
       camera.lookAt(this.cameraLookAt.x, this.cameraLookAt.y, camera.position.z - CAMERA_VIEW_POSITION_Z)
     }
 
