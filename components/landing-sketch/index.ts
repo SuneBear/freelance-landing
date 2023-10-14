@@ -62,6 +62,8 @@ export const listenToLoading = () => {
   }
 
   loadingManager.onLoad = () => {
+    if (!store.ui.isLoading) return
+
     const delay = getTimeDelay()
     // @TODO: 和 RAF 关联起来
     setTimeout(() => {

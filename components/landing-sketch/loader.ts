@@ -94,7 +94,7 @@ class LoaderManager {
     })
   }
 
-  load(_resources: Asset[] = [], callback?: (asset: Asset, data: any) => void) {
+  load<T = any>(_resources: Asset[] = [], callback?: (asset: Asset, data: T) => void) {
     if (!Array.isArray(_resources)) {
       _resources = [_resources]
     }
@@ -125,7 +125,9 @@ class LoaderManager {
   }
 
   fileLoadEnd(asset: Asset, _data: any, callback: any) {
-    loadingManager.itemEnd(asset.url)
+    if (asset.id) {
+      loadingManager.itemEnd(asset.url)
+    }
     callback && callback(asset, _data)
   }
 }

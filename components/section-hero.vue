@@ -6,7 +6,7 @@
       :onClick="handleScrollTipClick"
     )
       text-scramble-typing(
-        newMessage="滚动了解我的工作流程"
+        newMessage="滚动浏览我的过往作品"
         :start="store.ui.heroUIStart"
       )
 </template>

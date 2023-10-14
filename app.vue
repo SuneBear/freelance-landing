@@ -15,7 +15,8 @@ import Lenis from '@studio-freight/lenis'
 
 const setupSmoothScroll = () => {
   const lenis = new Lenis({
-    normalizeWheel: true
+    normalizeWheel: true,
+    lerp: 0.15,
   })
 
   lenis.on('scroll', ScrollTrigger.update)
@@ -30,7 +31,7 @@ const setupSmoothScroll = () => {
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
   gsap.registerPlugin(ScrollToPlugin)
-  setupSmoothScroll()
+  // setupSmoothScroll()
 })
 </script>
 

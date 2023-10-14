@@ -2,15 +2,18 @@
 .section.section-collab(
   ref="maskWrapper"
 )
+
+  .container.flex.flex-col.items-center
+    .section-title
+      span 了解我的
+      span.green 自由职业
+      span 工作流
+    .section-desc 自从 2018 年开始远程工作，实现了只工作不上班。在创业公司我们用简洁且透明的协作方式来提高效率，利用节省下来的时间我去了很多地方游玩，学了很多舒适圈以外的东西。希望 24 年开始利用副业创造很多收入。
+
   mask-scan-reveal.container(
     :progress="store.ui.collabScrollProgress"
   )
     .flex.flex-col.items-center
-      .section-title
-        span 了解我的
-        span.green 自由职业
-        span 工作流
-      .section-desc 自从 2018 年开始远程工作，实现了只工作不上班。在创业公司我们用简洁且透明的协作方式来提高效率，利用节省下来的时间我去了很多地方游玩，学了很多舒适圈以外的东西。希望 24 年开始利用副业创造很多收入。
       .workflow-list.flex.flex-col.items-center
         //-  @TODO: 支持动态定位
         .dom-arrows(

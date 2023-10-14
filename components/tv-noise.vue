@@ -55,7 +55,7 @@ const setupCanvas = () => {
   left: 0;
   top: 0;
   z-index: 100000;
-  opacity: 0.4;
+  opacity: 0.3;
   pointer-events: none;
   mix-blend-mode: color-dodge;
 

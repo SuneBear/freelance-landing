@@ -1,7 +1,9 @@
 import * as THREE from 'three'
 
+import { LAYERS } from './common'
 import { ModuleManager } from './module'
 import { HeroModule } from './hero.module'
+import { GalleryModule } from './gallery.module'
 import { control } from './control'
 import { TouchTexture } from './touch.texture'
 
@@ -23,6 +25,7 @@ export class World {
       alpha: true,
       antialias: true
     })
+    this.renderer.toneMapping = THREE.LinearToneMapping
     this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
     this.renderer.autoClear = false
     this.$container.appendChild(this.renderer.domElement)
@@ -37,6 +40,7 @@ export class World {
   setupModules () {
     this.moduleManager = new ModuleManager(this)
     this.moduleManager.add(HeroModule)
+    this.moduleManager.add(GalleryModule)
   }
 
   resize (width: number, height: number) {
@@ -53,6 +57,15 @@ export class World {
     control.update(delta)
     this.touchTexture.update(delta)
     this.moduleManager.update(delta)
+
+    // Layer Default
+    this.renderer.toneMappingExposure = Math.pow(2, 0)
+    camera.layers.set(LAYERS.DEFAULT)
+    renderer.render(scene, camera)
+
+    // Layer Gallery
+    this.renderer.toneMappingExposure = Math.pow(2, 1.7)
+    camera.layers.set(LAYERS.GALLERY)
     renderer.render(scene, camera)
   }
 

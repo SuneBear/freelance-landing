@@ -32,7 +32,7 @@ const BAR_SYNC_AMOUNT = (1 - BAR_GAP_PROGRESS) / BAR_GAP_PROGRESS
 
 const BAR_DELAY    = 100
 const RENDER_DELAY = 1 + 280 - BAR_DELAY
-const BAR_DURATION = 530
+const BAR_DURATION = 430
 
 const props = withDefaults(defineProps<{
   progress: number,
@@ -49,7 +49,7 @@ const el = ref(null)
 const state = reactive({
   pageWidth: 0,
   isRunning: false,
-  runningTime: 4,
+  runningTime: 5,
   pageEnterBarIndex: 0,
   pageEnterBarProgress: 0
 })

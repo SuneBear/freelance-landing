@@ -15,11 +15,12 @@ type MainState = {
       height: number
     },
 
+    scrollSpeed: number
     contentScrollProgress: number
     heroEnterProgress: number
     heroUIStart: boolean
     heroScrollLeaveProgress: number
-
+    galleryScrollProgress: number
     collabScrollProgress: number
     collabHeight: number
   },
@@ -45,10 +46,12 @@ export const useStore = defineStore('main', {
         height: 0
       },
 
+      scrollSpeed: 0,
       contentScrollProgress: 0,
       heroEnterProgress: 0,
       heroUIStart: false,
       heroScrollLeaveProgress: 0,
+      galleryScrollProgress: 0,
       collabScrollProgress: 0,
       collabHeight: 0,
     },

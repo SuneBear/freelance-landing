@@ -16,12 +16,12 @@
     //- Scrollable frame layer
     .content-wrapper
       .section.section-hero
-      //- .section.section-gallery
+      .section.section-gallery
       section-collab
 
   .scroll-trigger
     .section.section-hero
-    //- .section.section-gallery
+    .section.section-gallery
     .section.section-collab
 
   //- Non frame content layer
@@ -35,6 +35,7 @@ import { preInit, init, resize } from '@/components/landing-sketch'
 import { useResizeObserver } from '@vueuse/core'
 import { useMouse } from '@vueuse/core'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const store = useStore()
 const config = useRuntimeConfig()
@@ -70,6 +71,7 @@ const initSketch = () => {
 const setupScrollTrigger = () => {
   syncContentAndTriggerScrollTop()
   setupHeroScrollTrigger()
+  setupGalleryScrollTrigger()
   setupCollabScrollTrigger()
   setupContactScrollTrigger()
 }
@@ -108,12 +110,37 @@ const setupHeroScrollTrigger = () => {
   })
 }
 
+const setupGalleryScrollTrigger = () => {
+  gsap.to(store.ui, {
+    scrollTrigger: {
+      trigger: '.scroll-trigger .section-gallery',
+      markers: false,
+      scrub: 1,
+      id: 'galleryScrollProgress'
+    },
+    ease: "none",
+    galleryScrollProgress: 1,
+  })
+
+  let timer
+
+  const smoother = ScrollTrigger.create({
+    onUpdate: (self) => {
+      store.ui.scrollSpeed = self.getVelocity()
+      timer = setTimeout(() => {
+        store.ui.scrollSpeed = 0
+      }, 100)
+    }
+  })
+
+}
+
 const setupCollabScrollTrigger = () => {
   // @TODO: 支持配置 Scan 模式，可以和 collabScrollProgress 关联起来
   const tween = gsap.to(store.ui, {
     scrollTrigger: {
       trigger: '.scroll-trigger .section-collab',
-      start: 'top center',
+      start: 'top 20%',
       // end: 'bottom 40%',
       scrub: 1,
       id: 'collabScrollProgress'
@@ -257,6 +284,6 @@ useHead({
     // background: red
 
   .section-gallery
-    min-height: 200vh
+    min-height: 180vh
 
 </style>
