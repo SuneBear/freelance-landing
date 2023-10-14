@@ -68,8 +68,11 @@ export class ProjectCaseObject {
     videoElement.autoplay = true
     videoElement.loop = true
     videoElement.muted = true
+    videoElement.crossOrigin = 'anonymous'
     videoElement.src = this.options.recordVideoUrl
-    videoElement.play()
+    setTimeout(() => {
+      videoElement.play()
+    })
     this.videoTexture = new THREE.VideoTexture(videoElement)
     this.videoTexture.flipY = this.options.flipY || false
     // this.videoTexture.magFilter = THREE.NearestFilter
@@ -124,7 +127,7 @@ export class ProjectCaseObject {
       },
       uAlpha: {
         //opacity
-        value: 0.94
+        value: 0.99
       }
     }
     const material = new THREE.ShaderMaterial({

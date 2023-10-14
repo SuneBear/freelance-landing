@@ -5,8 +5,8 @@ import { LAYERS } from './common'
 import { Module } from './module'
 import { ProjectCaseOptions, ProjectCaseObject } from './project-case.object'
 
-const CASE_GAP = 1
-const VIEWPORT_SIZE = 2.2
+const CASE_GAP = 1.5
+const VIEWPORT_SIZE = 1.5
 
 const projectCasesConfig: ProjectCaseOptions[] = [
   {
@@ -22,25 +22,25 @@ const projectCasesConfig: ProjectCaseOptions[] = [
     // scale: 0.28,
     // rotation: [ -0.1, -0.52, 0],
     // position: [0, -0, -0.2]
-    scale: 0.6,
+    scale: 0.57,
     rotation: [ -0.1, -0.36, 0],
     position: [0, -0.5, 0]
   },
 
-  {
-    mockupModelUrl: '/cases/rct-dna/mockup.glb',
-    recordVideoUrl: '/cases/rct-dna/record.mp4',
-    recordVideoRatio: 720/720,
-    name: 'rct DNA',
-    meta: {
-      year: 2019
-    },
-    flipY: false,
-    modelSize: 1.1,
-    scale: 0.28,
-    rotation: [ -0.1, -0.3, 0],
-    position: [0, -0.25, 0]
-  },
+  // {
+  //   mockupModelUrl: '/cases/rct-dna/mockup.glb',
+  //   recordVideoUrl: '/cases/rct-dna/record.mp4',
+  //   recordVideoRatio: 720/720,
+  //   name: 'rct DNA',
+  //   meta: {
+  //     year: 2019
+  //   },
+  //   flipY: false,
+  //   modelSize: 1.1,
+  //   scale: 0.28,
+  //   rotation: [ -0.1, -0.3, 0],
+  //   position: [0, -0.25, 0]
+  // },
 
   {
     mockupModelUrl: '/cases/mirrorworld-space/mockup.glb',
@@ -51,10 +51,10 @@ const projectCasesConfig: ProjectCaseOptions[] = [
       year: 2021
     },
     flipY: false,
-    modelSize: 1.6,
-    scale: 0.7,
+    modelSize: 2,
+    scale: 0.85,
     rotation: [ -0.1, -0.4, 0],
-    position: [0, -0.5, 0]
+    position: [0, -0.73, 0]
   },
 
   {
@@ -66,26 +66,26 @@ const projectCasesConfig: ProjectCaseOptions[] = [
       year: 2022
     },
     flipY: false,
-    modelSize: 1.8,
-    scale: 0.4,
+    modelSize: 2.2,
+    scale: 0.88,
     rotation: [ -0.1, -0.45, 0],
-    position: [0, -0.3, 0]
+    position: [0, -0.747, 0]
   },
 
-  {
-    mockupModelUrl: '/cases/affine-landing-v2/mockup.glb',
-    recordVideoUrl: '/cases/affine-landing-v2/record.mp4',
-    recordVideoRatio: 1222/638,
-    name: 'AFFiNE Landing V2',
-    meta: {
-      year: 2023
-    },
-    flipY: false,
-    modelSize: 1.7,
-    scale: 0.7,
-    rotation: [ -0.1, -0.4, 0],
-    position: [0, -0.48, 0]
-  }
+  // {
+  //   mockupModelUrl: '/cases/affine-landing-v2/mockup.glb',
+  //   recordVideoUrl: '/cases/affine-landing-v2/record.mp4',
+  //   recordVideoRatio: 1222/638,
+  //   name: 'AFFiNE Landing V2',
+  //   meta: {
+  //     year: 2023
+  //   },
+  //   flipY: false,
+  //   modelSize: 2.3,
+  //   scale: 0.7,
+  //   rotation: [ -0.1, -0.4, 0],
+  //   position: [0, -0.48, 0]
+  // }
 ]
 
 export class GalleryModule extends Module {
@@ -144,6 +144,12 @@ export class GalleryModule extends Module {
     watch(() => store.ui.galleryScrollProgress, (val) => {
       scrollTimeline.progress(val)
     })
+  }
+
+  resize(width: number, height: number) {
+    const { isMobile } = useDevice()
+    const scale = isMobile ? -1 : 0
+    this.group.position.z = scale
   }
 
   update (delta: number) {
