@@ -63,7 +63,7 @@ export class ProjectCaseObject {
   }
 
   generateVideoTexture () {
-    const { isSafari } = useDevice()
+    const { isMobileOrTablet } = useDevice()
     const videoElement = document.createElement('video')
     videoElement.playsInline = true
     videoElement.autoplay = true
@@ -76,8 +76,8 @@ export class ProjectCaseObject {
         videoElement.play()
       })
     }
-    if (isSafari) {
-      document.addEventListener('click', () => {
+    if (isMobileOrTablet) {
+      document.addEventListener('touchstart', () => {
         videoElement.play()
       })
     }
