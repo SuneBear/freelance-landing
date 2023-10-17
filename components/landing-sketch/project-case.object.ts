@@ -63,6 +63,7 @@ export class ProjectCaseObject {
   }
 
   generateVideoTexture () {
+    const { isSafari } = useDevice()
     const videoElement = document.createElement('video')
     videoElement.playsInline = true
     videoElement.autoplay = true
@@ -72,6 +73,11 @@ export class ProjectCaseObject {
     videoElement.src = this.options.recordVideoUrl
     videoElement.onloadstart = () => {
       setTimeout(() => {
+        videoElement.play()
+      })
+    }
+    if (isSafari) {
+      document.addEventListener('click', () => {
         videoElement.play()
       })
     }
