@@ -66,26 +66,26 @@ const projectCasesConfig: ProjectCaseOptions[] = [
       year: 2022
     },
     flipY: false,
-    modelSize: 2.2,
+    modelSize: 2.3,
     scale: 0.88,
     rotation: [ -0.1, -0.45, 0],
     position: [0, -0.747, 0]
   },
 
-  // {
-  //   mockupModelUrl: '/cases/affine-landing-v2/mockup.glb',
-  //   recordVideoUrl: '/cases/affine-landing-v2/record.mp4',
-  //   recordVideoRatio: 1222/638,
-  //   name: 'AFFiNE Landing V2',
-  //   meta: {
-  //     year: 2023
-  //   },
-  //   flipY: false,
-  //   modelSize: 2.3,
-  //   scale: 0.7,
-  //   rotation: [ -0.1, -0.4, 0],
-  //   position: [0, -0.48, 0]
-  // }
+  {
+    mockupModelUrl: '/cases/affine-landing-v2/mockup.glb',
+    recordVideoUrl: '/cases/affine-landing-v2/record.mp4',
+    recordVideoRatio: 1222/638,
+    name: 'AFFiNE Landing V2',
+    meta: {
+      year: 2023
+    },
+    flipY: false,
+    modelSize: 2.3,
+    scale: 0.92,
+    rotation: [ -0.1, -0.4, 0],
+    position: [0, -0.77, 0]
+  }
 ]
 
 export class GalleryModule extends Module {

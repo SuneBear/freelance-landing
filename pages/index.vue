@@ -101,7 +101,7 @@ const setupHeroScrollTrigger = () => {
       trigger: '.scroll-trigger .section-hero',
       markers: false,
       start: 'top',
-      end: 'bottom 20%',
+      end: 'bottom 0%',
       scrub: 1,
       id: 'heroScrollLeaveProgress'
     },
@@ -284,6 +284,6 @@ useHead({
     // background: red
 
   .section-gallery
-    min-height: 180vh
+    min-height: 200vh
 
 </style>

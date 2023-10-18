@@ -127,6 +127,14 @@
           ) 收款方式
           | ，支付我相应的报酬。我会给项目提供长期售后，为多次合作打下基础。
 
+        workflow-item.workflow-tips(
+          width="700px"
+          title="除前端之外，更全面的合作"
+          themeColor="#808080"
+          iconEmoji="👐"
+        )
+          | 如果你拥有 <b>💡 Idea</b>，想要完整的产品团队。我可以介绍与我合作多年的 <b>视觉设计师、后端、合约、算法、运维工程师</b> 一起，帮助你把想法落地。
+
 </template>
 
 <script lang="ts" setup>
@@ -274,6 +282,14 @@ onMounted(() => {
 
     .workflow-req
       align-self: flex-start
+
+    .workflow-tips
+      @media (min-width: 1000px)
+        margin-top: 100px
+
+      b
+        font-weight: 500
+        color: $primary100
 
     .workflow-deliver,
     .workflow-develop
