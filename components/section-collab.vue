@@ -134,12 +134,20 @@
           iconEmoji="👐"
         )
           | 如果客户拥有 <b>💡 Idea</b>，想要完整的产品团队。我可以介绍与我合作多年的 <b>视觉设计师、后端、合约、算法、运维工程师</b> 一起，帮助客户把想法落地。
+          | <br/><br/>
+          | 想要了解更多？欢迎阅读《
+          icon-link(
+            iconName="notebook-agenda"
+            :href="PATH.coCreateManual"
+          ) &nbsp;与舒乐熊一起快乐协作手册.pdf
+          | 》
 
 </template>
 
 <script lang="ts" setup>
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useResizeObserver } from '@vueuse/core'
+import { PATH } from '@/utils/const'
 
 const store = useStore()
 const { isMobile } = useDevice()
