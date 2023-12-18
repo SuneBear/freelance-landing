@@ -16,7 +16,7 @@ hover-spotlight-card.business-card.flex.gap-40px(
         text-scramble-shuffle( needMask :forcePlay="shouldPlayShuffle" text="熊舒乐" :enableHover="false")
       h3.info-title.mt-2
         text-scramble-shuffle( needMask :forcePlay="shouldPlayShuffle" :text="`${age}`" :enableHover="false")
-        | &nbsp;岁 · 爱切图的前端工程师
+        | &nbsp;岁 · 爱动效的前端工程师
 
     .bottom-part.text-right
       p.my-0.into-contact.font-chakra( @click.stop="handleCopyClick(wechat)" )
